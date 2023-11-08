@@ -2,16 +2,10 @@ FROM python:3.10
 
 WORKDIR /opt
 
-RUN git clone https://github.com/tanovs/repka_project_backend.git
+RUN git clone https://github.com/tanovs/repka_backend.git
 
-WORKDIR /opt/repka_project_backend
+WORKDIR /opt/repka_backend
 
-RUN git checkout develop
-RUN git pull origin develop
-
-RUN rm -rf nginx repka_admin docker_compose.yml
-
-WORKDIR /opt/repka_project_backend/application
 
 RUN apt-get update \
     && apt-get install -y netcat-traditional
@@ -33,4 +27,4 @@ ENV MAIL_SERVER=smtp.mail.ru
 ENV MAIL_FROM_NAME="Repka tech API"
 
 
-CMD ["python3.10", "main.py"]
+CMD ["python3.10", "application/main.py"]
