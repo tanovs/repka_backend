@@ -14,17 +14,5 @@ RUN pip install --upgrade pip \
 
 EXPOSE 8080
 
-ENV POSTGRES_PASSWORD=123qwe
-ENV POSTGRES_HOST=postgres
-ENV POSTGRES_PORT=5432
-ENV POSTGRES_DB = repka_database
-ENV POSTGRES_USER = repka
-ENV MAIL_USERNAME = a.koreyba@repka.tech
-ENV MAIL_PASSWORD=Shwg5qbtA9pDCDMG9vPZ
-ENV MAIL_FROM=a.koreyba@repka.tech
-ENV MAIL_PORT=587
-ENV MAIL_SERVER=smtp.mail.ru
-ENV MAIL_FROM_NAME="Repka tech API"
-
 
 CMD ["python3.10", "application/main.py"]
