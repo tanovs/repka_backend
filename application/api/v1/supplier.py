@@ -13,6 +13,7 @@ from service.get_data_service import GetDataService, get_data_service
 from service.send_email_service import SendEmailService, get_send_email_service
 from service.update_data_service import (UpdateDataService,
                                          get_update_data_service)
+from typing import List
 
 router_supplier_add = APIRouter()
 router_supplier_get = APIRouter()
@@ -204,7 +205,7 @@ async def supplier_good(
     )
     return [SupplierGoodInfo.parse_obj(good._asdict()) for good in supplier_good]
 
-@router_supplier_get.get('/supplier/tag/{supplier_id}')
+@router_supplier_get.get('/supplier/tag/{supplier_id}', response_model=List[SupplierTagResponse])
 async def supplier_categories(
     supplier_id: UUID,
     service: GetDataService = Depends(get_data_service),
@@ -223,7 +224,7 @@ async def supplier_categories(
             tag_names.append(tag_name)
     return supplier_tags_models
 
-@router_supplier_get.post('/supplier/good/category/{supplier_id}')
+@router_supplier_get.post('/supplier/good/category/{supplier_id}', response_model=List[SupplierGoodInfoResponse])
 async def get_supplier_good_by_tag(
     supplier_id: UUID,
     list_tags: GetSuppliersGoodResponse = ...,

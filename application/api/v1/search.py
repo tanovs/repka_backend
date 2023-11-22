@@ -12,7 +12,7 @@ search_by_good = APIRouter()
 router_main_screen = APIRouter()
 
 
-@router_main_screen.get('/')
+@router_main_screen.get('/', response_model=List[MainScreenResponse])
 async def get_main_screen_data(
     limit: int,
     last_company_name: Optional[str] = None,
@@ -41,7 +41,7 @@ async def get_main_screen_data(
     return result_suppliers
 
 
-@search_by_supplier.post('/supplier/search_with_params')
+@search_by_supplier.post('/supplier/search_with_params', response_class=List[AllSuppliers])
 async def search_by_suppliers(
     like: Optional[str] = None,
     resp: Optional[SearchWithParamsResponse] = None,
@@ -54,7 +54,7 @@ async def search_by_suppliers(
     return [AllSuppliers.parse_obj(supplier._asdict()) for supplier in suppliers]
 
 
-@search_by_good.post('/good/search_with_params')
+@search_by_good.post('/good/search_with_params', response_model=List[SearchGoodsResponse])
 async def search_by_goods(
     like: Optional[str] = None,
     resp: Optional[SearchWithParamsResponse] = None,
@@ -65,7 +65,6 @@ async def search_by_goods(
         goods = await service.get_all_goods()
     else:
         goods = await service.get_all_goods_by_params(params=resp, like=like)
-    print(goods)
     resp_dict = {}
     response = []
     for good in goods:
