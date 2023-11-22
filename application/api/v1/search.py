@@ -41,7 +41,7 @@ async def get_main_screen_data(
     return result_suppliers
 
 
-@search_by_supplier.post('/supplier/search_with_params', response_class=List[AllSuppliers])
+@search_by_supplier.post('/supplier/search_with_params', response_model=List[AllSuppliers])
 async def search_by_suppliers(
     like: Optional[str] = None,
     resp: Optional[SearchWithParamsResponse] = None,
