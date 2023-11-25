@@ -82,13 +82,13 @@ class GetDataService:
     async def get_category_service(self, category: str, size: int):
         if category:
             return (await self.select_data(stmt=(
-                select(Category.id, Category.category_name, Category.file_path)
+                select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
                 .order_by(Category.category_name)
                 .where(Category.category_name > category)
                 .limit(size)
             ))).fetchall()
         return (await self.select_data(stmt=(
-            select(Category.id, Category.category_name, Category.file_path)
+            select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
             .order_by(Category.category_name)
             .limit(size)
         ))).fetchall()
@@ -97,7 +97,7 @@ class GetDataService:
         return (
             await self.select_data(
                 stmt=(
-                    select(Category.id, Category.category_name, Category.file_path)
+                    select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
                     .order_by(Category.category_name)
                 ).filter(Category.category_name.ilike(f'%{like}%'))
             )

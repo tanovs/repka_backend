@@ -39,6 +39,7 @@ class Category(BaseModel):
     id: UUID
     category_name: str
     file_path: Optional[str]
+    category_enum: str
 
     class Config:
         orm_mode = True

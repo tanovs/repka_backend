@@ -54,7 +54,7 @@ async def search_by_suppliers(
     return [AllSuppliers.parse_obj(supplier._asdict()) for supplier in suppliers]
 
 
-@search_by_good.post('/good/search_with_params', response_model=List[SearchGoodsResponse])
+@search_by_good.post('/good/search_with_params', response_model=List[MainScreenResponse])
 async def search_by_goods(
     like: Optional[str] = None,
     resp: Optional[SearchWithParamsResponse] = None,
@@ -75,18 +75,18 @@ async def search_by_goods(
     for key, val in resp_dict.items():
         goods = []
         for item in val:
-            good = GoodResponse(
-                id=item.good_id,
+            good = CompanyGoodsResponse(
+                good_id=item.good_id,
                 name=item.name,
                 volume=item.volume,
                 price=item.price,
             )
             goods.append(good)
         response.append(
-            SearchGoodsResponse(
-                supplier_id=val[0].supplier_id,
+            MainScreenResponse(
+                company_id=val[0].supplier_id,
                 company_name=key,
-                goods=goods,
+                company_goods=goods,
             )
         )
             
