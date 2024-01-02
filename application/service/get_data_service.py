@@ -83,13 +83,13 @@ class GetDataService:
         if category:
             return (await self.select_data(stmt=(
                 select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
-                .order_by(Category.category_name)
+                .order_by(Category.prioritet)
                 .where(Category.category_name > category)
                 .limit(size)
             ))).fetchall()
         return (await self.select_data(stmt=(
             select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
-            .order_by(Category.category_name)
+            .order_by(Category.prioritet)
             .limit(size)
         ))).fetchall()
     
@@ -98,7 +98,7 @@ class GetDataService:
             await self.select_data(
                 stmt=(
                     select(Category.id, Category.category_name, Category.file_path, Category.category_enum)
-                    .order_by(Category.category_name)
+                    .order_by(Category.prioritet)
                 ).filter(Category.category_name.ilike(f'%{like}%'))
             )
         ).fetchall()

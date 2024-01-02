@@ -40,5 +40,6 @@ class Category(Base, TimeStampMixin, UUIDMixin):
     category_name = Column(String, nullable=False)
     file_path = Column(String)
     category_enum = Column(String, nullable=False)
+    prioritet = Column(Integer, nullable=False)
     tag = relationship('Tag', back_populates='category')
 
